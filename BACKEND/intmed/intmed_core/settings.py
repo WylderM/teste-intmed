@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from .decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'intmed_core.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT"),
+        "NAME": "intmed_db",
+        "USER": "intmed_user",
+        "PASSWORD": "intmed_pass",
+        "HOST": "db",
+        "PORT": 5432,
         "TEST": {"NAME": "intmed_core_test"},
         "OPTIONS": {
             "options": "-c statement_timeout=35000",
@@ -88,11 +88,11 @@ DATABASES = {
     },
     "export": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT"),
+        "NAME": "intmed_db",
+        "USER": "intmed_user",
+        "PASSWORD": "intmed_pass",
+        "HOST": "db",
+        "PORT": 5432,
         "OPTIONS": {
             "options": "-c statement_timeout=60000",
         }
