@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_DB: intmed_db
+            POSTGRES_USER: intmed_user
+            POSTGRES_PASSWORD: intmed_pass
+        expose:
+            - 5432
+        ports:
+            - "5435:5432"
+        volumes:
+            - db_data:/var/lib/postgresql/data
+    web:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: python /code/intmed/manage.py runserver 0.0.0.0:8000
+        restart: on-failure
+        expose:
+            - 8000
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
+        volumes:
+            - .:/code
+
+volumes:
+    db_data:

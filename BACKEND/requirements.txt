@@ -1,0 +1,11 @@
+Django==4.1.4
+django-cors-headers
+django-rest-framework
+PyYAML
+uritemplate
+requests
+django-admin-list-filter-dropdown
+django-cachalot
+django-configurations
+django-cursor-pagination
+python-decouple
