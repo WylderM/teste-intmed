@@ -4,4 +4,4 @@ from agenda.models import Medico
 class MedicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medico
-        fields = ['id', 'name', 'crm', 'email']
+        fields = ['id', 'nome', 'crm', 'email']
