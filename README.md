@@ -31,7 +31,7 @@ python manage.py migrate
 ```
 
 ### Crie um user super admin
-
+```
 docker-compose exec web /code/intmed/manage.py createsuperuser
 
 Username: admin
@@ -41,3 +41,4 @@ Email address: admin@intmed.com
 Password: admin@2023
 
 acesse: http://localhost:8000/admin
+```
