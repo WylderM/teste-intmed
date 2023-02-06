@@ -3,9 +3,6 @@ from django.contrib import admin
 # Register your models here.
 from medicar.models import Medico, Agenda, Consulta
 
-
-
-
 class Medicos(admin.ModelAdmin):
     list_display = ('nome', 'crm', 'email')
     search_fields = ('nome', 'crm', 'email')
@@ -16,16 +13,7 @@ class Agendas(admin.ModelAdmin):
     search_fields = ('medico', 'dia', 'horario')
 admin.site.register(Agenda, Agendas)
 
-
 class Consultas(admin.ModelAdmin):
-    # # agenda = Agenda.objects.filter(horario = 'horario')
-
-    # # print("AQUI: ", horarios_display)
-    # # def horarios_display(self, agenda):
-    # #     return ', '.join(Agenda.objects.filter(horario = 'horario').all().values_list('horario', flat=True))
-
-    # # horarios_display.short_description = 'Horários'
-
-    list_display = ('agenda', 'realizada')
-    search_fields = ('agenda', 'realizada')
+    list_display = ('agenda', 'horario', 'data_agendamento')
+    search_fields = ('agenda', 'horario', 'data_agendamento')
 admin.site.register(Consulta, Consultas)

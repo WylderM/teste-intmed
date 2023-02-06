@@ -2,14 +2,14 @@ from django.db import models
 from .medico import Medico
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
 class Agenda(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     dia = models.DateField(max_length=200, blank=False, null=False)
-    horario = models.TextField()
-    data_agenda = models.DateTimeField(default=timezone.now)
+    horario = ArrayField(models.TimeField(), null=True)
 
     class Meta:
         unique_together = (('medico', 'dia'),)

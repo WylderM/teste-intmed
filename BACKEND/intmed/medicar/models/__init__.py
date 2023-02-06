@@ -1,5 +1,5 @@
-from .agenda import Agenda
-from .medico import Medico
-from .consulta import Consulta
+from .agenda import *
+from .medico import *
+from .consulta import *
 
 

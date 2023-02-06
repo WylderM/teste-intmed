@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from medicar.views.consulta import lista_consulta
-from medicar.views.agenda import lista_agenda
+from medicar.views import *
+from rest_framework import routers
 
+router = routers.DefaultRouter()
+router.register('medicos', MedicoViewSet, basename='medicos')
+router.register('consultas', ConsultaViewSet, basename='consultas')
+router.register('agendas', AgendaViewSet, basename='agendas')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('consultas', lista_consulta, name='lista_consulta'),
-    path('agendas', lista_agenda, name='lista_agenda'),
+    path('', include(router.urls)),
 ]

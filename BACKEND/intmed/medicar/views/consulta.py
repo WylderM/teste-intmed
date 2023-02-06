@@ -5,26 +5,31 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from django.utils import timezone
 from medicar.serializer import ConsultaSerializer
+from datetime import *
+from rest_framework.response import Response
+from rest_framework import status
 
+class ConsultaViewSet(viewsets.ModelViewSet):
+    queryset = Consulta.objects.all()
+    serializer_class = ConsultaSerializer
 
-def lista_consulta(request):
-    agendas = get_list_or_404(Agenda)
-    agenda_list = []
-    for agenda in agendas:
-        medico = {
-            'id': agenda.medico.id,
-            'crm': agenda.medico.crm,
-            'nome': agenda.medico.nome,
-            'email': agenda.medico.email,
-        }
-        agendamento_dict = {
-            'id': agenda.id,
-            'dia': agenda.dia,
-            'horario': agenda.horario,
-            'data_agendamento': agenda.data_agenda,
-            'medico': medico,
-        }
-        agenda_list.append(agendamento_dict)
-    return JsonResponse(agenda_list, safe=False)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        agenda = Agenda.objects.get(pk=request.data.get('agenda_id'))
+        horario = request.data.get('horario')
+
+        # Verificar se horário está disponível na agenda
+        consulta_existente = Consulta.objects.filter(agenda=agenda, horario=horario).exists()
+        if consulta_existente:
+            return Response({'message': 'Horário não disponível'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Verificar se horário é passado
+        if agenda.dia < datetime.date.today() or (agenda.dia == datetime.date.today() and horario < datetime.datetime.now().time()):
+            return Response({'message': 'Não é possível agendar para um dia e horário passados'}, status=status.HTTP_400_BAD_REQUEST)
+
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
