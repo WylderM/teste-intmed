@@ -10,9 +10,4 @@ class Consulta(models.Model):
         return f'{self.agenda} - {self.horario} - {self.data_agendamento}'
 
 
-    def lista_de_horarios(self):
-        return list(Agenda.objects.values_list('horario', flat=True).distinct())
-
-    lista_de_horarios.short_description = 'Horários'
-
 

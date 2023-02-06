@@ -9,3 +9,4 @@ django-cachalot==2.5.2
 django-configurations==2.4.0
 django-cursor-pagination==0.2.1
 psycopg2==2.9.5
+django-filter==22.1.0

@@ -1,11 +1,10 @@
 from django.http import JsonResponse
 from django.shortcuts import get_list_or_404
 from medicar.models import Agenda, Consulta
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
 from rest_framework.response import Response
-from django.utils import timezone
-from medicar.serializer import ConsultaSerializer
-from datetime import *
+from medicar.serializers import *
+from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -31,5 +30,30 @@ class ConsultaViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def list (self, request, *args, **kwargs):
+        consultas = get_list_or_404(Consulta)
+        agendas = get_list_or_404(Agenda)
+        consulta_list = []
+        for consulta in consultas:
+            for agenda in agendas:
+                medico = {
+                    'id': agenda.medico.id,
+                    'crm': agenda.medico.crm,
+                    'nome': agenda.medico.nome,
+                    'email': agenda.medico.email,
+                }
+            agendamento_dict = {
+                'id': consulta.id,
+                'dia': agenda.dia,
+                'horario': consulta.horario,
+                'data_agendamento': consulta.data_agendamento,
+                'medico': medico,
+            }
+            consulta_list.append(agendamento_dict)
+        return JsonResponse(consulta_list, safe=False)
+
+
+
 
 
