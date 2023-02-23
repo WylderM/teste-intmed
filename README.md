@@ -9,8 +9,9 @@
 git clone https://github.com/WylderM/teste-intmed.git
 ```
 
-### Iniciando o banco de dados e a aplicação
-``` bash/cmd
+### Iniciando o banco de dados e a aplicação com docker
+```Após clonar o projeto, com bash/cmd, navegue até a raiz da pasta "BACKEND" lá terá os arquivos docker para inicialização da aplicão. 
+```Com bash/cmd, use o comando abaixo para inicializar a aplicação:   
 docker-compose up --build
 ```
 
