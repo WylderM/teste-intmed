@@ -7,10 +7,13 @@ from medicar.serializers import *
 from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
-
+from medicar.querySeters.consulta import ConsultaQuerySet
 class ConsultaViewSet(viewsets.ModelViewSet):
-    queryset = Consulta.objects.all()
     serializer_class = ConsultaSerializer
+
+
+    def get_queryset(self):
+        return ConsultaQuerySet.get_all_consultas()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

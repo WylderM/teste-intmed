@@ -15,5 +15,10 @@ class Medico(models.Model):
         if Medico.objects.filter(crm=self.crm).exclude(pk=self.pk).exists():
             raise ValidationError({'crm': ['Este CRM já está em uso.']})
 
+    @staticmethod
+    def all_medicos():
+        return Medico.objects.all()
 
+    def get_queryset():
+        return Medico.objects.all()
 

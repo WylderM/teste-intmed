@@ -4,13 +4,18 @@ from medicar.serializers import *
 from django.shortcuts import get_list_or_404
 from django.http import JsonResponse
 from datetime import date
-from medicar.filter import *
+from medicar.filters import *
 from medicar.serializers import *
+from medicar.querySeters.agenda import  AgendaQuerySet
+
 
 class AgendaViewSet(viewsets.ModelViewSet):
-    queryset = Agenda.objects.filter(dia__gte=date.today(), horario__isnull=False).order_by('dia')
     serializer_class = AgendaSerializer
     filter_class = AgendaFilter
+
+
+    def get_queryset(self):
+        return AgendaQuerySet.get_agendas_by_day()
 
     def list (self, request, *args, **kwargs):
         agendas = get_list_or_404(Agenda)
