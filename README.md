@@ -27,8 +27,8 @@ Acesse a aplicação em [http://localhost:8000](http://localhost:8000).
 ``` 
 Navegue até a raiz da pasta "BACKEND" e digite os seguintes comandos abaixo: 
 
-docker-compose exec web /code/eureca_core/manage.py createcachetable
-docker-compose exec web /code/eureca_core/manage.py migrate
+docker-compose exec web /code/intmed/manage.py createcachetable
+docker-compose exec web /code/intmed/manage.py migrate
 ```
 #ou
 
