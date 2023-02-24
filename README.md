@@ -23,9 +23,12 @@ Obs: Esse comando irá baixar todas as dependências necessárias para rodar o p
 Acesse a aplicação em [http://localhost:8000](http://localhost:8000).
 
 ### Migre o banco de dados
+
 ``` 
-docker-compose exec web /code/eureca_core/manage.py createcachetable
-docker-compose exec web /code/eureca_core/manage.py migrate
+Navegue até a raiz da pasta "BACKEND" e digite os seguintes comandos abaixo: 
+
+docker-compose exec web /code/intmed/manage.py createcachetable
+docker-compose exec web /code/intmed/manage.py migrate
 ```
 #ou
 
